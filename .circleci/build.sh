@@ -1,6 +1,8 @@
 #!/bin/bash
 
-rm -rf build
+cd `dirname $0`
+cd ..
+
 mkdir build
 cd build
 cmake ..

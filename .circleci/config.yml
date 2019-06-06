@@ -27,6 +27,6 @@ jobs:
       - run:
           name: build library
           command: |
-            chmod a+x build.sh
-            ./build.sh
+            chmod a+x .circleci/build.sh
+            .circleci/build.sh
 
