@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: whill/clang-gtest:0.0.1
+      
+    working_directory: ~/libwhill
+
+    steps:
+      - checkout
+
+      - run:
+          name: install dependencies
+          command: |
+            #apt update
+            apt install -y libgtest-dev cmake
+            wget -O - 'https://github.com/google/googletest/archive/release-1.8.1.tar.gz' | tar xzvf -
+            cd googletest-release-1.8.1
+            mkdir build
+            cd build
+            cmake -DBUILD_SHARED_LIBS=ON ../
+            make
+            cp -a ../googletest/include/gtest /usr/include
+            cp -a ./googlemock/gtest/libgtest_main.so ./googlemock/gtest/libgtest.so /usr/lib/
+        
+      # run tests!
+      - run:
+          name: build library
+          command: |
+            chmod a+x build.sh
+            ./build.sh
+
