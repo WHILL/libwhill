@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: enumack/buildcontainers:clang-6.0.0
+      - image: enumack/buildcontainers:clang-5.0.0
       
     working_directory: ~/libwhill
 
