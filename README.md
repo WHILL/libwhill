@@ -17,7 +17,7 @@ The SDK receives data streaming from WHILL and provides controller commands to W
 # Install (Simple)
 ```
 cd ~
-curl -sf https://raw.githubusercontent.com/WHILL/libwhill/easy-install/for_curl.sh | sh -s
+curl -sf https://raw.githubusercontent.com/WHILL/libwhill/master/for_curl.sh | sh -s
 ```
 
 # Download and Install
