@@ -1,7 +1,4 @@
-# libwhill
-WHILL SDK https://whill.jp/model-cr
-
-# Overviw
+# Overview
 **WHILL SDK** is a linux library for WHILL Model CR personal mobility development platform.
 
 The SDK receives data streaming from WHILL and provides controller commands to WHILL.
