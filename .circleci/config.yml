@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: enumack/buildcontainers:clang-6.0.0
+      
+    working_directory: ~/libwhill
+
+    steps:
+      - checkout
+
+      - run:
+          name: install dependencies
+          command: |
+            apt install -y libgtest-dev cmake
+            wget -O - 'https://github.com/google/googletest/archive/release-1.7.0.tar.gz' | tar xzvf -
+            cd googletest-release-1.7.0
+            cmake -DBUILD_SHARED_LIBS=ON .
+            make
+            cp -a include/gtest /usr/include
+            cp -a libgtest_main.so libgtest.so /usr/lib/
+        
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            #echo "Compiling unit tests..."
+            #clang -c add.c
+            #clang++ -lgtest -std=c++11 -pthread -g -Wall -Wextra -o unit_test.o -c test.cpp
+            #clang++ -std=c++11 -g -Wall -Wextra -o unit_test add.o unit_test.o -lgtest -pthread
+            #echo "Running unit tests..."
+            #./unit_test -v
+            #result=$?
+            #rm -r unit_test add.o unit_test.o
+            #exit $result
+          
+
