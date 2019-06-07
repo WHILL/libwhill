@@ -1,4 +1,0 @@
-# - Config file for the libuvc package
-set(libwhill_INCLUDE_DIRS "@CONF_INCLUDE_DIR@")
-set(libwhill_LIBRARY_DIRS "@CONF_LIBRARY_DIR@")
-set(libwhill_LIBRARIES "@CONF_LIBRARIES@")
