@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 2.8)
-project(libwhill)
+cmake_minimum_required(VERSION 3.10.2)
+project(whill)
 
 if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type selected, default to Release")
@@ -78,7 +78,6 @@ set(CONF_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/include")
 set(CONF_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}/lib/${CMAKE_LIBRARY_ARCHITECTURE}")
 set(CONF_LIBRARIES   "${CONF_LIBRARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}whill${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
-configure_file(${PROJECT_NAME}Config.cmake.in ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}Config.cmake @ONLY)
 configure_file(${PROJECT_NAME}.pc.in ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.pc @ONLY)
 
 message(STATUS "Targets will be installed...")
@@ -89,13 +88,14 @@ install(TARGETS ${WHILL_TARGETS}
         EXPORT ${PROJECT_NAME}-export
         LIBRARY       DESTINATION "lib/${CMAKE_LIBRARY_ARCHITECTURE}"
         ARCHIVE       DESTINATION "lib/${CMAKE_LIBRARY_ARCHITECTURE}"
+        INCLUDES      DESTINATION "include"
         PUBLIC_HEADER DESTINATION "include/${PROJECT_NAME}"
 )
 
-install(FILES 
-    "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${PROJECT_NAME}Config.cmake"
+install(EXPORT ${PROJECT_NAME}-export
+    FILE "${PROJECT_NAME}Config.cmake"
     DESTINATION "lib/cmake/${PROJECT_NAME}"
-)
+    EXPORT_LINK_INTERFACE_LIBRARIES)
 
 install(EXPORT ${PROJECT_NAME}-export
     FILE "${PROJECT_NAME}Config-version.cmake"
