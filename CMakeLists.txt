@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10.2)
 project(whill)
 
+
 if (NOT CMAKE_BUILD_TYPE)
     message(STATUS "No build type selected, default to Release")
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
@@ -13,6 +14,7 @@ endif()
 
 option(BUILD_EXAMPLE "Build example program" OFF)
 option(BUILD_TEST "Build test program" OFF)
+option(BUILD_SHARED_LIBS "Build shared libs" ON)
 
 set(${PROJECT_NAME}_VERSION_MAJOR 0)
 set(${PROJECT_NAME}_VERSION_MINOR 1)
@@ -31,15 +33,11 @@ set(SOURCES
     src/WHILL.cpp
 )
 
-if(${CMAKE_BUILD_TARGET} MATCHES "Shared")
+
+if(BUILD_SHARED_LIBS)
     set(BUILD_WHILL_SHARED TRUE)
-elseif(${CMAKE_BUILD_TARGET} MATCHES "Static")
-    set(BUILD_WHILL_STATIC TRUE)
-elseif(${CMAKE_BUILD_TARGET} MATCHES "Both")
-    set(BUILD_WHILL_SHARED TRUE)
-    set(BUILD_WHILL_STATIC TRUE)
 else()
-    message(FATAL_ERROR "Invalid build type ${CMAKE_BUILD_TYPE}")
+    set(BUILD_WHILL_STATIC TRUE)
 endif()
 
 message(STATUS "CMAKE_CURRENT_SOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}")
@@ -75,19 +73,18 @@ if(BUILD_TEST)
 endif()
 
 set(CONF_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/include")
-set(CONF_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}/lib/${CMAKE_LIBRARY_ARCHITECTURE}")
+set(CONF_LIBRARY_DIR "${CMAKE_INSTALL_PREFIX}/lib")
 set(CONF_LIBRARIES   "${CONF_LIBRARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}whill${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
 configure_file(${PROJECT_NAME}.pc.in ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.pc @ONLY)
 
 message(STATUS "Targets will be installed...")
 message(STATUS "CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
-message(STATUS "CMAKE_LIBRARY_ARCHITECTURE=${CMAKE_LIBRARY_ARCHITECTURE}")
 
 install(TARGETS ${WHILL_TARGETS}
         EXPORT ${PROJECT_NAME}-export
-        LIBRARY       DESTINATION "lib/${CMAKE_LIBRARY_ARCHITECTURE}"
-        ARCHIVE       DESTINATION "lib/${CMAKE_LIBRARY_ARCHITECTURE}"
+        LIBRARY       DESTINATION "lib"
+        ARCHIVE       DESTINATION "lib"
         INCLUDES      DESTINATION "include"
         PUBLIC_HEADER DESTINATION "include/${PROJECT_NAME}"
 )
