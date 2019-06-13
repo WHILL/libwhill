@@ -1,0 +1,31 @@
+
+<?xml version="1.0"?>
+
+<!-- This file is only used to enable the building librealsense2 -->
+<!-- as a debian package for use with ROS (http://ros.org) -->
+<!-- via catkin_make (which invokes cmake) -->
+
+<package format="2">
+  <name>libwhill</name>
+  <!-- The version tag needs to be updated with each new release of librealsense -->
+  <version>0.1.0</version>
+  <description>
+  WHILL SDK is a linux library for WHILL Model CR personal mobility development platform. The SDK receives data streaming from WHILL and provides controller commands to WHILL.
+  </description>
+
+  <maintainer email="shimizu@whill.jp">Seiya Shimizu</maintainer>
+
+  <url type="website">https://github.com/IntelRealSense/librealsense/</url>
+
+  <author email="shimizu@whill.jp">Seiya Shimizu</author>
+  <author email="sugiura@whill.jp">Hikaru Sugiura</author>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>
+
